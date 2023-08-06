@@ -28,17 +28,27 @@ func maxCalories(calories string) int {
 			groupCalories += individualCalories
 		}
 
-		for i := 0; i < len(maxCalories); i++ {
-			if groupCalories > maxCalories[i] {
-				maxCalories[i] = groupCalories
-				sort.Ints(maxCalories)
-				break
-			}
+		maxCalories = addToSliceIfBigger(groupCalories, maxCalories)
+	}
+
+	return sumIntSlice(maxCalories)
+}
+
+func addToSliceIfBigger(intToAdd int, ints []int) []int {
+	for i := 0; i < len(ints); i++ {
+		if intToAdd > ints[i] {
+			ints[i] = intToAdd
+			sort.Ints(ints)
+			break
 		}
 	}
 
+	return ints
+}
+
+func sumIntSlice(ints []int) int {
 	maxCaloriesSum := 0
-	for _, i := range maxCalories {
+	for _, i := range ints {
 		maxCaloriesSum += i
 	}
 
