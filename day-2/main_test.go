@@ -37,3 +37,15 @@ C Z`
 		t.Fatalf(fmt.Sprintf("Expected %d got %d", expectedPoints, actualPoints))
 	}
 }
+
+func TestPartTwo(t *testing.T) {
+	games := `A Y
+B X
+C Z`
+	expectedPoints := 12
+
+	actualPoints := partTwo(games)
+	if actualPoints != expectedPoints {
+		t.Fatalf(fmt.Sprintf("Expected %d got %d", expectedPoints, actualPoints))
+	}
+}
