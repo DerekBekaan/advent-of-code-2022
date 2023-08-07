@@ -18,7 +18,7 @@ func TestGetMatchScore(t *testing.T) {
 	}
 
 	for _, testCase := range testParams {
-		actualPoints := getMatchScore(testCase.encryptedGame)
+		actualPoints := getMatchScore(testCase.encryptedGame, getPlayedPartOne)
 		if actualPoints != testCase.points {
 			t.Fatalf(fmt.Sprintf("Expected %d got %d", testCase.points, actualPoints))
 		}
