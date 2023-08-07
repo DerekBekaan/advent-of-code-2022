@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"sort"
 	"strconv"
@@ -10,47 +11,37 @@ import (
 func main() {
 	calories, _ := os.ReadFile("calories.txt")
 
-	println(maxCalories(string(calories)))
+	fmt.Println("Part 1: ", partOne(string(calories)))
+	fmt.Println("Part 2: ", partTwo(string(calories)))
 }
 
-func maxCalories(calories string) int {
-	calories = strings.ReplaceAll(calories, "\r", "")
-	caloriesSplit := strings.Split(calories, "\n\n")
-	maxCalories := []int{0, 0, 0}
+func sumCalories(caloriesInput string) []int {
+	caloriesInput = strings.ReplaceAll(caloriesInput, "\r", "")
+	caloriesSplit := strings.Split(caloriesInput, "\n")
 
-	for _, calorieGroup := range caloriesSplit {
-		calorieGroupSplit := strings.Split(calorieGroup, "\n")
-		groupCalories := 0
-
-		for _, individualCalories := range calorieGroupSplit {
-			individualCalories, _ := strconv.Atoi(individualCalories)
-
-			groupCalories += individualCalories
-		}
-
-		maxCalories = addToSliceIfBigger(groupCalories, maxCalories)
-	}
-
-	return sumIntSlice(maxCalories)
-}
-
-func addToSliceIfBigger(intToAdd int, ints []int) []int {
-	for i := 0; i < len(ints); i++ {
-		if intToAdd > ints[i] {
-			ints[i] = intToAdd
-			sort.Ints(ints)
-			break
+	var summedCalories []int
+	var caloriesSum = 0
+	for i, calories := range caloriesSplit {
+		if cals, err := strconv.Atoi(calories); err == nil {
+			caloriesSum += cals
+		} else if err != nil || i == len(caloriesSplit)-1 {
+			summedCalories = append(summedCalories, caloriesSum)
+			caloriesSum = 0
 		}
 	}
 
-	return ints
+	return summedCalories
 }
 
-func sumIntSlice(ints []int) int {
-	maxCaloriesSum := 0
-	for _, i := range ints {
-		maxCaloriesSum += i
-	}
+func partOne(calories string) int {
+	summedCalroies := sumCalories(calories)
+	sort.Ints(summedCalroies)
+	return summedCalroies[len(summedCalroies)-1]
+}
 
-	return maxCaloriesSum
+func partTwo(calories string) int {
+	summedCalroies := sumCalories(calories)
+	sort.Ints(summedCalroies)
+
+	return summedCalroies[len(summedCalroies)-1] + summedCalroies[len(summedCalroies)-2] + summedCalroies[len(summedCalroies)-3]
 }

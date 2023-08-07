@@ -5,8 +5,7 @@ import (
 	"testing"
 )
 
-func TestMaxCaloires(t *testing.T) {
-	calories := `1000
+var calories = `1000
 2000
 3000
 
@@ -20,9 +19,21 @@ func TestMaxCaloires(t *testing.T) {
 9000
 
 10000`
+
+func TestPartOne(t *testing.T) {
+	expected := 24000
+
+	actual := partOne(calories)
+
+	if actual != expected {
+		t.Fatalf(fmt.Sprintf("Expected %d got %d", expected, actual))
+	}
+}
+
+func TestPartTwo(t *testing.T) {
 	expected := 45000
 
-	actual := maxCalories(calories)
+	actual := partTwo(calories)
 
 	if actual != expected {
 		t.Fatalf(fmt.Sprintf("Expected %d got %d", expected, actual))
