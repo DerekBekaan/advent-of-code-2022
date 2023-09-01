@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestSumPriorities(t *testing.T) {
+func TestPartOne(t *testing.T) {
 	rucksackContents := `vJrwpWtwJgWrhcsFMMfFFhFp
 	jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 	PmmdzqPrVvPwwTWBwg
@@ -11,7 +11,7 @@ func TestSumPriorities(t *testing.T) {
 	CrZsJsPPZsGzwwsLwLmpwMDw`
 	expected := 157
 
-	actual := sumPriorities(rucksackContents)
+	actual := partOne(rucksackContents)
 	if actual != expected {
 		t.Fatalf("Expected %d, got %d", expected, actual)
 	}
@@ -37,7 +37,7 @@ func TestCommonItem(t *testing.T) {
 	rucksackContents2 := "rsFMfFZSrLrFZsSL"
 	expected := 'L'
 
-	actual := getCommonItem(rucksackContents1, rucksackContents2)
+	actual := getCommonItem([]string{rucksackContents1, rucksackContents2})
 
 	if actual != expected {
 		t.Fatalf("Expected %x, got %x", expected, actual)
@@ -48,6 +48,22 @@ func TestCommonItem(t *testing.T) {
 func TestGetItemValue(t *testing.T) {
 	expected := 16
 	actual := getItemValue('p')
+
+	if expected != actual {
+		t.Errorf("Expected %d, got %d", expected, actual)
+	}
+}
+
+func TestPartTwo(t *testing.T) {
+	rucksacks := `vJrwpWtwJgWrhcsFMMfFFhFp
+	jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+	PmmdzqPrVvPwwTWBwg
+	wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+	ttgJtRGJQctTZtZT
+	CrZsJsPPZsGzwwsLwLmpwMDw`
+
+	expected := 70
+	actual := partTwo(rucksacks)
 
 	if expected != actual {
 		t.Errorf("Expected %d, got %d", expected, actual)
