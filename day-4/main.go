@@ -47,14 +47,14 @@ func rangeOverlaps(range1 Range, range2 Range) bool {
 }
 
 func partOne(cleaningids string) int {
-	return cleaningIdOpertion(cleaningids, rangeContainsOther)
+	return performOperationOnCleaningPair(cleaningids, rangeContainsOther)
 }
 
 func partTwo(cleaningids string) int {
-	return cleaningIdOpertion(cleaningids, rangeOverlaps)
+	return performOperationOnCleaningPair(cleaningids, rangeOverlaps)
 }
 
-func cleaningIdOpertion(cleaningIds string, rangeOperation rangePredicateOperation) int {
+func performOperationOnCleaningPair(cleaningIds string, rangeOperation rangePredicateOperation) int {
 	scanner := bufio.NewScanner(strings.NewReader(cleaningIds))
 	count := 0
 	for scanner.Scan() {
