@@ -48,17 +48,47 @@ func TestRangeContainsOther(t *testing.T) {
 
 }
 
-func TestPartOne(t *testing.T) {
-	cleaningIds := `2-4,6-8
+func TestRangeOverlaps(t *testing.T) {
+	tests := []struct {
+		range1, range2 Range
+		expected       bool
+	}{
+		{Range{2, 5}, Range{5, 7}, true},
+		{Range{3, 4}, Range{5, 8}, false},
+		{Range{6, 6}, Range{4, 6}, true},
+		{Range{7, 8}, Range{1, 3}, false},
+		{Range{2, 6}, Range{4, 8}, true},
+	}
+
+	for _, test := range tests {
+		actual := rangeOverlaps(test.range1, test.range2)
+		if actual != test.expected {
+			t.Fatalf("Expected %v, got %v for input %v, %v", test.expected, actual, test.range1, test.range2)
+		}
+	}
+}
+
+var cleaningIds = `2-4,6-8
 	2-3,4-5
 	5-7,7-9
 	2-8,3-7
 	6-6,4-6
 	2-6,4-8`
 
+func TestPartOne(t *testing.T) {
 	expected := 2
 
 	actual := partOne(cleaningIds)
+
+	if actual != expected {
+		t.Fatalf("Expected %v, got %v", expected, actual)
+	}
+}
+
+func TestPartTwo(t *testing.T) {
+	expected := 4
+
+	actual := partTwo(cleaningIds)
 
 	if actual != expected {
 		t.Fatalf("Expected %v, got %v", expected, actual)
